@@ -3,7 +3,7 @@ resolver = "2"
 
 members = ["drink", "drink/test-macro", "drink-cli"]
 
-exclude = ["examples/"]
+exclude = ["examples/", "ink-sandbox/"]
 
 [workspace.package]
 authors = ["Cardinal"]
