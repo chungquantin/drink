@@ -18,7 +18,7 @@ scale-info = { version = "2.11.1", default-features = false, features = ["derive
 [dev-dependencies]
 drink = { path = "../../drink" }
 
-# If you are creating a custom runtime with `drink::create_sandbox!` macro, unfortunately you need to
+# If you are creating a custom runtime with `drink::create_sandbox_with_runtime!` macro, unfortunately you need to
 # include these dependencies manually. Versions should match the ones in `Cargo.toml` of the `drink` crate.
 frame-support = "32.0.0"
 frame-system = "32.0.0"
