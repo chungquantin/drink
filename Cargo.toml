@@ -40,13 +40,13 @@ ink_sandbox = { version = "5.1.0" }
 # Substrate dependencies
 
 frame-metadata = { version = "16.0.0" }
-frame-support = { version = "32.0.0"}
-frame-system = { version = "32.0.0" }
+frame-support = { version = "36.0.0" }
+frame-system = { version = "36.1.0" }
 pallet-contracts = { version = "29.0.0", default-features = false }
 pallet-balances = { version = "30.0.0", default-features = false }
 pallet-timestamp = { version = "29.0.0", default-features = false }
 sp-externalities = { version = "0.28.0", default-features = false }
-sp-runtime-interface = { version = "27.0.0" }
+sp-runtime-interface = { version = "28.0.0" }
 
 # Local dependencies
 
