@@ -26,15 +26,14 @@ mod balance_checker {
         }
 
         #[ink(message)]
-        pub fn check(&self) -> u128 {
+        pub fn check(&self) -> bool {
             build_call::<DefaultEnvironment>()
                 .call(self.token_contract)
                 .transferred_value(U256::zero())
-                .exec_input(
-                    ExecutionInput::new(Selector::new(ink::selector_bytes!("PSP22::balance_of")))
-                        .push_arg(self.account),
-                )
-                .returns::<u128>()
+                .exec_input(ExecutionInput::new(Selector::new(ink::selector_bytes!(
+                    "Flipper::get"
+                ))))
+                .returns::<bool>()
                 .invoke()
         }
     }
@@ -52,9 +51,9 @@ mod tests {
     #[drink::test]
     fn contracts_work_correctly(mut session: Session) -> Result<(), Box<dyn Error>> {
         let token_contract = session.deploy_bundle(
-            BundleProvider::Psp22.bundle()?,
+            BundleProvider::Flipper.bundle()?,
             "new",
-            &["10", "None", "None", "1"],
+            &["true"],
             NO_SALT,
             NO_ENDOWMENT,
         )?;

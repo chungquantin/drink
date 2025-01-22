@@ -7,6 +7,21 @@ mod tests {
         AccountId32, Sandbox,
     };
 
+    fn compile_module(contract_name: &str) -> Vec<u8> {
+        use std::path::Path;
+        // Get the current file's directory.
+        let base_path = Path::new(file!())
+            .parent()
+            .expect("Failed to determine the base path");
+
+        // Construct the path to the contract file.
+        let contract_path = base_path
+            .join("test-resources")
+            .join(format!("{}.polkavm", contract_name));
+
+        std::fs::read(&contract_path).expect("Failed to read contract file")
+    }
+
     #[test]
     fn we_can_make_a_token_transfer_call() {
         // We create a sandbox object, which represents a blockchain runtime.
@@ -46,7 +61,7 @@ mod tests {
         let actor = MinimalSandbox::default_actor();
         let origin = MinimalSandbox::convert_account_to_origin(actor);
         let upload_result = sandbox
-            .upload_contract(wat::parse_str(CONTRACT).unwrap(), origin, 0)
+            .upload_contract(compile_module("dummy"), origin, 1_000_000)
             .expect("Failed to upload a contract");
 
         // If a particular call is not available directly in the sandbox, it can always be executed
@@ -59,30 +74,4 @@ mod tests {
             .runtime_call(call_object, Some(MinimalSandbox::default_actor()))
             .expect("Failed to remove a contract");
     }
-
-    /// This is just a dummy contract code, that does nothing. It is written in WAT, a text format
-    /// for WebAssembly. We need to have some valid contract bytes in order for `upload_contract`
-    /// to succeed.
-    const CONTRACT: &str = r#"
-    (module
-	(import "seal0" "seal_deposit_event" (func $seal_deposit_event (param i32 i32 i32 i32)))
-	(import "seal0" "seal_return" (func $seal_return (param i32 i32 i32)))
-	(import "env" "memory" (memory 1 1))
-
-	(func (export "deploy"))
-
-	(func (export "call")
-    (call $seal_deposit_event
-      (i32.const 0)
-      (i32.const 0)
-      (i32.const 8)
-      (i32.const 4)
-    )
-		(call $seal_return
-			(i32.const 0)
-			(i32.const 0)
-			(i32.const 4)
-		)
-	)
-)"#;
 }

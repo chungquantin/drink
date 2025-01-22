@@ -10,8 +10,7 @@ version = "0.1.0"
 ink = { git = "https://github.com/use-ink/ink", features = [
     "ink-debug",
 ], default-features = false }
-psp22 = { git = "https://github.com/Cardinal-Cryptography/PSP22.git", branch = "ink5", default-features = false, features = [
-    "contract",
+flipper = { path = "../flipper", default-features = false, features = [
     "ink-as-dependency",
 ] }
 
@@ -23,5 +22,5 @@ path = "lib.rs"
 
 [features]
 default = ["std"]
-std = ["ink/std", "psp22/std"]
+std = ["ink/std", "flipper/std"]
 ink-as-dependency = []
