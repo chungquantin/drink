@@ -66,7 +66,11 @@ mod tests {
         // Now, we can deploy our proper contract and verify its behavior.
         let result: (u8, u8) = session
             .deploy_bundle_and(BundleProvider::local()?, "new", NO_ARGS, NO_SALT, None)?
-            .call_and("forward_call", &[mock_address.to_string()], NO_ENDOWMENT)?
+            .call_and(
+                "forward_call",
+                &[format!("{:?}", mock_address)],
+                NO_ENDOWMENT,
+            )?
             .record()
             .last_call_return_decoded()?
             .expect("Call was successful");

@@ -47,8 +47,8 @@ use crate::{
 };
 
 type BalanceOf<R> = <<R as Config>::Currency as Inspect<AccountIdFor<R>>>::Balance;
+type RuntimeOrigin<R> = <R as frame_system::Config>::RuntimeOrigin;
 
-const DEFAULT_STORAGE_DEPOSIT_LIMIT: u32 = 1_000_000;
 /// Convenient value for an empty sequence of call/instantiation arguments.
 ///
 /// Without it, you would have to specify explicitly a compatible type, like:
@@ -146,7 +146,7 @@ where
     sandbox: T,
 
     actor: AccountIdFor<T::Runtime>,
-    origin: <T::Runtime as frame_system::Config>::RuntimeOrigin,
+    origin: RuntimeOrigin<T::Runtime>,
     gas_limit: Weight,
     storage_deposit_limit: BalanceOf<T::Runtime>,
 
@@ -181,7 +181,7 @@ where
             actor,
             origin,
             gas_limit: T::default_gas_limit(),
-            storage_deposit_limit: DEFAULT_STORAGE_DEPOSIT_LIMIT.into(),
+            storage_deposit_limit: BalanceOf::<T::Runtime>::max_value(),
             transcoders: TranscoderRegistry::new(),
             record: Default::default(),
         }
@@ -331,13 +331,12 @@ where
             .map_err(|err| SessionError::Encoding(err.to_string()))?;
 
         let result = self.record_events(|session| {
-            let origin = T::convert_account_to_origin(session.actor.clone());
             session.sandbox.deploy_contract(
                 contract_bytes,
                 endowment.unwrap_or_default(),
                 data,
                 salt,
-                origin,
+                session.origin.clone(),
                 session.gas_limit,
                 DepositLimit::Balance(session.storage_deposit_limit),
             )
@@ -575,12 +574,11 @@ where
             .map_err(|err| SessionError::Encoding(err.to_string()))?;
 
         let result = self.record_events(|session| {
-            let origin = T::convert_account_to_origin(session.actor.clone());
             session.sandbox.call_contract(
                 address,
                 endowment.unwrap_or_default(),
                 data,
-                origin,
+                session.origin.clone(),
                 session.gas_limit,
                 DepositLimit::Balance(session.storage_deposit_limit),
             )
