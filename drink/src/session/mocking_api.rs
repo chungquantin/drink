@@ -46,6 +46,9 @@ where
         let mock_address = self
             .sandbox()
             .deploy_contract(
+                // We have to deploy some contract. We use a dummy contract for that. Thanks to that, we
+                // ensure that the pallet will treat our mock just as a regular contract, until we actually
+                // call it.
                 read_contract_binary("dummy"),
                 0u32.into(),
                 vec![],
