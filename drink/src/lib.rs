@@ -35,7 +35,8 @@ pub mod minimal {
     );
 }
 
-pub(crate) fn compile_module(contract_name: &str) -> Vec<u8> {
+/// Read the PolkaVM contract binary file.
+pub(crate) fn read_contract_binary(contract_name: &str) -> Vec<u8> {
     use std::path::Path;
     // Get the current file's directory.
     let base_path = Path::new(file!())

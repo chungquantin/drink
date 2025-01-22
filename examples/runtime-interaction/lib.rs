@@ -7,7 +7,7 @@ mod tests {
         AccountId32, Sandbox,
     };
 
-    fn compile_module(contract_name: &str) -> Vec<u8> {
+    fn read_contract_binary(contract_name: &str) -> Vec<u8> {
         use std::path::Path;
         // Get the current file's directory.
         let base_path = Path::new(file!())
@@ -61,7 +61,7 @@ mod tests {
         let actor = MinimalSandbox::default_actor();
         let origin = MinimalSandbox::convert_account_to_origin(actor);
         let upload_result = sandbox
-            .upload_contract(compile_module("dummy"), origin, 1_000_000)
+            .upload_contract(read_contract_binary("dummy"), origin, 1_000_000)
             .expect("Failed to upload a contract");
 
         // If a particular call is not available directly in the sandbox, it can always be executed

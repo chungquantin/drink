@@ -13,8 +13,8 @@ use ink_sandbox::{
 
 use super::{BalanceOf, Session};
 use crate::{
-    compile_module,
     pallet_revive::Config,
+    read_contract_binary,
     session::mock::ContractMock, // DEFAULT_GAS_LIMIT,
 };
 
@@ -46,7 +46,7 @@ where
         let mock_address = self
             .sandbox()
             .deploy_contract(
-                compile_module("dummy"),
+                read_contract_binary("dummy"),
                 0u32.into(),
                 vec![],
                 Some(salt),
