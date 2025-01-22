@@ -16,12 +16,6 @@ path = "lib.rs"
 ink = { git = "https://github.com/use-ink/ink", features = [
     "ink-debug",
 ], default-features = false }
-scale = { package = "parity-scale-codec", version = "3", default-features = false, features = [
-    "derive",
-] }
-scale-info = { version = "2.11.1", default-features = false, features = [
-    "derive",
-], optional = true }
 
 [dev-dependencies]
 # For testing purposes we bring the `drink` library.
@@ -29,7 +23,7 @@ drink = { path = "../../drink" }
 
 [features]
 default = ["std"]
-std = ["ink/std", "scale/std", "scale-info/std"]
+std = ["ink/std"]
 # If the current crate defines a smart contract that we want to test, we can't forget to have `ink-as-dependency`
 # feature declared. This is how `#[drink::test]` and `#[drink::contract_bundle_provider]` discovers contracts to be
 # built.
