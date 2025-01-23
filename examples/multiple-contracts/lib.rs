@@ -26,7 +26,7 @@ mod checker {
             build_call::<DefaultEnvironment>()
                 .call(self.contract)
                 .exec_input(ExecutionInput::new(Selector::new(ink::selector_bytes!(
-                    "Flipper::get"
+                    "get"
                 ))))
                 .returns::<bool>()
                 .invoke()
