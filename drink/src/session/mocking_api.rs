@@ -1,5 +1,7 @@
 //! Mocking API for the sandbox.
 
+use std::path::Path;
+
 use frame_support::sp_runtime::traits::Bounded;
 use ink_primitives::DepositLimit;
 use ink_sandbox::{
@@ -42,14 +44,21 @@ where
             .expect("Should be able to acquire lock on registry")
             .salt();
 
+        // Construct the path to the contract file.
+        let contract_path = Path::new(file!())
+            .parent()
+            .and_then(Path::parent)
+            .and_then(Path::parent)
+            .expect("Failed to determine the base path")
+            .join("test-resources");
+
         let origin = T::convert_account_to_origin(T::default_actor());
         let mock_address = self
             .sandbox()
             .deploy_contract(
-                // We have to deploy some contract. We use a dummy contract for that. Thanks to that, we
-                // ensure that the pallet will treat our mock just as a regular contract, until we actually
-                // call it.
-                read_contract_binary("dummy"),
+                // Deploy a dummy contract to ensure that the pallet will treat the mock as a regular contract until it is
+                // actually called.
+                read_contract_binary(&contract_path, "dummy"),
                 0u32.into(),
                 vec![],
                 Some(salt),

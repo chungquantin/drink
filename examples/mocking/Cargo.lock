@@ -3592,8 +3592,6 @@ version = "0.1.0"
 dependencies = [
  "drink",
  "ink",
- "parity-scale-codec",
- "scale-info",
 ]
 
 [[package]]

@@ -31,9 +31,7 @@ impl MockRegistry {
     /// Returns the salt for the next contract.
     pub fn salt(&mut self) -> [u8; 32] {
         self.nonce += 1;
-        let mut salt = [0u8; 32];
-        salt[0] = self.nonce;
-        salt
+        [self.nonce; 32]
     }
 
     /// Registers `mock` for `address`. Returns the previous mock, if any.

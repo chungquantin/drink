@@ -36,18 +36,8 @@ pub mod minimal {
 }
 
 /// Read the PolkaVM contract binary file.
-pub(crate) fn read_contract_binary(contract_name: &str) -> Vec<u8> {
-    use std::path::Path;
-    // Get the current file's directory.
-    let base_path = Path::new(file!())
-        .parent()
-        .and_then(Path::parent)
-        .expect("Failed to determine the base path");
-
+pub fn read_contract_binary(path: &std::path::PathBuf, contract_name: &str) -> Vec<u8> {
     // Construct the path to the contract file.
-    let contract_path = base_path
-        .join("test-resources")
-        .join(format!("{}.polkavm", contract_name));
-
+    let contract_path = path.join(format!("{}.polkavm", contract_name));
     std::fs::read(&contract_path).expect("Failed to read contract file")
 }

@@ -16,7 +16,7 @@ use crate::{DrinkResult, Error};
 /// - `upload_bundle_and`
 #[derive(Clone)]
 pub struct ContractBundle {
-    /// Contract's binary data.
+    /// Binary of the contract.
     pub binary: Vec<u8>,
     /// Transcoder derived from the ABI/metadata
     pub transcoder: Arc<ContractMessageTranscoder>,

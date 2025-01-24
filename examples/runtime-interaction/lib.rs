@@ -2,25 +2,10 @@
 mod tests {
     use drink::{
         minimal::{MinimalSandbox, RuntimeCall},
-        pallet_balances, pallet_revive,
+        pallet_balances, pallet_revive, read_contract_binary,
         sandbox_api::prelude::*,
         AccountId32, Sandbox,
     };
-
-    fn read_contract_binary(contract_name: &str) -> Vec<u8> {
-        use std::path::Path;
-        // Get the current file's directory.
-        let base_path = Path::new(file!())
-            .parent()
-            .expect("Failed to determine the base path");
-
-        // Construct the path to the contract file.
-        let contract_path = base_path
-            .join("test-resources")
-            .join(format!("{}.polkavm", contract_name));
-
-        std::fs::read(&contract_path).expect("Failed to read contract file")
-    }
 
     #[test]
     fn we_can_make_a_token_transfer_call() {
@@ -56,12 +41,22 @@ mod tests {
     fn we_can_work_with_the_contracts_pallet_in_low_level() {
         let mut sandbox = MinimalSandbox::default();
 
+        // Construct the path to the contract file.
+        let contract_path = std::path::Path::new(file!())
+            .parent()
+            .expect("Failed to determine the base path")
+            .join("test-resources");
+
         // A few runtime calls are also available directly from the sandbox. This includes a part of
         // the contracts API.
         let actor = MinimalSandbox::default_actor();
         let origin = MinimalSandbox::convert_account_to_origin(actor);
         let upload_result = sandbox
-            .upload_contract(read_contract_binary("dummy"), origin, 1_000_000)
+            .upload_contract(
+                read_contract_binary(&contract_path, "dummy"),
+                origin,
+                1_000_000,
+            )
             .expect("Failed to upload a contract");
 
         // If a particular call is not available directly in the sandbox, it can always be executed
