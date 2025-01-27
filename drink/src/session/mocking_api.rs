@@ -16,9 +16,13 @@ use ink_sandbox::{
 use super::{BalanceOf, Session};
 use crate::{
     pallet_revive::Config,
-    read_contract_binary,
     session::mock::ContractMock, // DEFAULT_GAS_LIMIT,
 };
+
+/// Read the PolkaVM contract binary file.
+pub fn read_contract_binary(path: &std::path::PathBuf) -> Vec<u8> {
+    std::fs::read(&path).expect("Failed to read contract file")
+}
 
 /// Interface for basic mocking operations.
 pub trait MockingApi<R: Config> {
@@ -50,7 +54,8 @@ where
             .and_then(Path::parent)
             .and_then(Path::parent)
             .expect("Failed to determine the base path")
-            .join("test-resources");
+            .join("test-resources")
+            .join("dummy.polkavm");
 
         let origin = T::convert_account_to_origin(T::default_actor());
         let mock_address = self
@@ -58,7 +63,7 @@ where
             .deploy_contract(
                 // Deploy a dummy contract to ensure that the pallet will treat the mock as a regular contract until it is
                 // actually called.
-                read_contract_binary(&contract_path, "dummy"),
+                read_contract_binary(&contract_path),
                 0u32.into(),
                 vec![],
                 Some(salt),

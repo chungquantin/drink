@@ -34,10 +34,3 @@ pub mod minimal {
         crate::pallet_revive_debugging::DrinkDebug
     );
 }
-
-/// Read the PolkaVM contract binary file.
-pub fn read_contract_binary(path: &std::path::PathBuf, contract_name: &str) -> Vec<u8> {
-    // Construct the path to the contract file.
-    let contract_path = path.join(format!("{}.polkavm", contract_name));
-    std::fs::read(&contract_path).expect("Failed to read contract file")
-}

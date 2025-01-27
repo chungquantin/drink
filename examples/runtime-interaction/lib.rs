@@ -2,8 +2,9 @@
 mod tests {
     use drink::{
         minimal::{MinimalSandbox, RuntimeCall},
-        pallet_balances, pallet_revive, read_contract_binary,
+        pallet_balances, pallet_revive,
         sandbox_api::prelude::*,
+        session::mocking_api::read_contract_binary,
         AccountId32, Sandbox,
     };
 
@@ -45,18 +46,15 @@ mod tests {
         let contract_path = std::path::Path::new(file!())
             .parent()
             .expect("Failed to determine the base path")
-            .join("test-resources");
+            .join("test-resources")
+            .join("dummy.polkavm");
 
         // A few runtime calls are also available directly from the sandbox. This includes a part of
         // the contracts API.
         let actor = MinimalSandbox::default_actor();
         let origin = MinimalSandbox::convert_account_to_origin(actor);
         let upload_result = sandbox
-            .upload_contract(
-                read_contract_binary(&contract_path, "dummy"),
-                origin,
-                1_000_000,
-            )
+            .upload_contract(read_contract_binary(&contract_path), origin, 1_000_000)
             .expect("Failed to upload a contract");
 
         // If a particular call is not available directly in the sandbox, it can always be executed
