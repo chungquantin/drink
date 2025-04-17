@@ -24,14 +24,13 @@ fn build_result(app_state: &mut AppState) -> Result<String, BuildError> {
     let args = ExecuteArgs {
         manifest_path,
         build_mode: BuildMode::Release,
-        optimization_passes: Some(OptimizationPasses::default()),
         verbosity: Verbosity::Quiet,
         ..Default::default()
     };
 
     contract_build::execute(args)
         .map_err(|err| BuildError::BuildFailed { err })?
-        .dest_wasm
+        .dest_polkavm
         .ok_or(BuildError::WasmNotGenerated)?
         .canonicalize()
         .map_err(|err| BuildError::InvalidDestPath { err })
