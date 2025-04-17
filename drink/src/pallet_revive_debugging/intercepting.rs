@@ -3,7 +3,7 @@ use parity_scale_codec::{Decode, Encode};
 
 use crate::{
     pallet_revive::{
-        debug::{CallInterceptor, ExecResult, ExportedFunction},
+        tracing::{CallInterceptor, ExecResult, ExportedFunction},
         Config,
     },
     pallet_revive_debugging::{runtime::contract_call_debugger, DrinkDebug},
