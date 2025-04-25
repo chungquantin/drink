@@ -4,7 +4,7 @@ use std::{
     sync::Arc,
 };
 
-use contract_build::{BuildMode, ExecuteArgs, ManifestPath, OptimizationPasses, Verbosity};
+use contract_build::{BuildMode, ExecuteArgs, ManifestPath, Verbosity};
 use contract_transcode::ContractMessageTranscoder;
 
 use crate::{
@@ -30,7 +30,7 @@ fn build_result(app_state: &mut AppState) -> Result<String, BuildError> {
 
     contract_build::execute(args)
         .map_err(|err| BuildError::BuildFailed { err })?
-        .dest_polkavm
+        .dest_binary
         .ok_or(BuildError::WasmNotGenerated)?
         .canonicalize()
         .map_err(|err| BuildError::InvalidDestPath { err })

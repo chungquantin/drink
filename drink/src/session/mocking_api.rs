@@ -19,7 +19,7 @@ use crate::{
     session::mock::ContractMock, // DEFAULT_GAS_LIMIT,
 };
 
-/// Read the PolkaVM contract binary file.
+/// Read the contract binary file.
 pub fn read_contract_binary(path: &std::path::PathBuf) -> Vec<u8> {
     std::fs::read(&path).expect("Failed to read contract file")
 }

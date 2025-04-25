@@ -9,7 +9,6 @@ version = "0.1.0"
 [dependencies]
 ink = { git = "https://github.com/use-ink/ink", features = [
     "ink-debug",
-    "unstable-hostfn"
 ], default-features = false }
 
 [dev-dependencies]

@@ -27,10 +27,5 @@ pub type DrinkResult<T> = std::result::Result<T, Error>;
 pub mod minimal {
     use ink_sandbox::create_sandbox;
 
-    // create_sandbox!(MinimalSandbox);
-    create_sandbox!(
-        MinimalSandbox,
-        (),
-        crate::pallet_revive_debugging::DrinkDebug
-    );
+    create_sandbox!(MinimalSandbox);
 }
