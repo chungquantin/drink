@@ -2,7 +2,7 @@
 
 #[ink::contract]
 mod flipper {
-    #[ink(event)]
+    #[ink::event]
     pub struct Flipped {
         new_value: bool,
     }
@@ -48,7 +48,7 @@ mod tests {
 
         // Firstly, we deploy the contract and call its `flip` method.
         session.deploy_bundle(bundle.clone(), "new", &["false"], None, NO_ENDOWMENT)?;
-        session.call("flip", NO_ARGS, NO_ENDOWMENT)??;
+        let _ = session.call::<_, ()>("flip", NO_ARGS, NO_ENDOWMENT)??;
 
         // Now we can inspect the emitted events.
         let record = session.record();

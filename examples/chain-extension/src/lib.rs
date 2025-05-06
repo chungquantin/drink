@@ -48,7 +48,8 @@ mod tests {
     // We can inject arbitrary chain extension into the minimal runtime as follows:
     create_sandbox!(
         SandboxWithCE,
-        crate::chain_extension_runtime_side::StakingExtension
+        crate::chain_extension_runtime_side::StakingExtension,
+        ()
     );
 
     /// Test that we can call chain extension from ink! contract and get a correct result.

@@ -127,7 +127,6 @@ fn build_contract_crate(pkg: FeaturedPackage) -> (String, PathBuf) {
                 keep_debug_symbols: false,
                 extra_lints: false,
                 output_type: OutputType::HumanReadable,
-                skip_clippy_and_linting: true,
                 metadata_spec: MetadataSpec::Ink,
                 image: ImageVariant::Default,
             };
