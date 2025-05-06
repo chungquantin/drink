@@ -10,7 +10,9 @@ version = "0.1.0"
 path = "lib.rs"
 
 [dependencies]
-ink = { git = "https://github.com/use-ink/ink", default-features = false }
+ink = { git = "https://github.com/use-ink/ink", features = [
+    "unstable-hostfn"
+], default-features = false }
 
 scale = { package = "parity-scale-codec", version = "3", default-features = false, features = [
     "derive",

@@ -44,7 +44,7 @@ impl ContractBundle {
 
         let binary = metadata
             .source
-            .wasm
+            .contract_binary
             .ok_or(Error::BundleLoadFailed(
                 "Failed to get the WASM blob from the contract file".to_string(),
             ))?

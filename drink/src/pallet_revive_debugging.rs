@@ -22,10 +22,9 @@
 
 mod intercepting;
 mod runtime;
-mod tracing;
 
 pub use runtime::{InterceptingExt, InterceptingExtT, NoopExt, TracingExt, TracingExtT};
 
 /// Main configuration parameter for the contracts pallet debugging. Provides all the necessary
 /// trait implementations.
-pub enum DrinkDebug {}
+pub enum DrinkDebugMiddleware {}

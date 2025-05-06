@@ -1,10 +1,11 @@
 use std::sync::{Arc, Mutex};
 
+use ink_sandbox::pallet_revive::ExecReturnValue;
 use parity_scale_codec::{Decode, Encode};
 
 use crate::{
     errors::MessageResult,
-    pallet_revive::{chain_extension::ReturnFlags, debug::ExecResult, ExecReturnValue},
+    pallet_revive::chain_extension::ReturnFlags,
     pallet_revive_debugging::InterceptingExtT,
     session::mock::{MockRegistry, Selector},
 };
@@ -58,10 +59,10 @@ impl InterceptingExtT for MockingExtension {
                     Err(_) => ReturnFlags::REVERT,
                 };
 
-                let result: ExecResult = Ok(ExecReturnValue {
+                let result = ExecReturnValue {
                     flags,
                     data: result,
-                });
+                };
 
                 Some(result).encode()
             }
