@@ -107,31 +107,33 @@ mod tests {
         Ok(())
     }
 
-    /// In this testcase we will see how to get and read debug logs from the contract.
-    #[drink::test]
-    fn get_debug_logs(mut session: Session) -> Result<(), Box<dyn std::error::Error>> {
-        session.deploy_bundle(
-            BundleProvider::local()?,
-            "new",
-            &["true"],
-            NO_SALT,
-            NO_ENDOWMENT,
-        )?;
+    // TODO: Deprecated due to `pallet-revive`. There is no `debug_message`.
+    //
+    // /// In this testcase we will see how to get and read debug logs from the contract.
+    // #[drink::test]
+    // fn get_debug_logs(mut session: Session) -> Result<(), Box<dyn std::error::Error>> {
+    //     session.deploy_bundle(
+    //         BundleProvider::local()?,
+    //         "new",
+    //         &["true"],
+    //         NO_SALT,
+    //         NO_ENDOWMENT,
+    //     )?;
 
-        // `deploy_bundle` returns just a contract address. If we are interested in more details
-        // about last operation (either deploy or call), we can get a `Record` object and use its
-        // `last_deploy_result` (or analogously `last_call_result`) method, which will provide us
-        // with a full report from the last contract interaction.
-        //
-        // In particular, we can get the decoded debug buffer from the contract. The buffer is
-        // just a vector of bytes, which we can decode using the `decode_debug_buffer` function.
-        let decoded_buffer = &session.record().last_deploy_result().debug_message;
-        let encoded_buffer = decode_debug_buffer(decoded_buffer);
+    //     // `deploy_bundle` returns just a contract address. If we are interested in more details
+    //     // about last operation (either deploy or call), we can get a `Record` object and use its
+    //     // `last_deploy_result` (or analogously `last_call_result`) method, which will provide us
+    //     // with a full report from the last contract interaction.
+    //     //
+    //     // In particular, we can get the decoded debug buffer from the contract. The buffer is
+    //     // just a vector of bytes, which we can decode using the `decode_debug_buffer` function.
+    //     let decoded_buffer = &session.record().last_deploy_result().debug_message;
+    //     let encoded_buffer = decode_debug_buffer(decoded_buffer);
 
-        assert_eq!(encoded_buffer, vec!["Initializing contract with: `true`"]);
+    //     assert_eq!(encoded_buffer, vec!["Initializing contract with: `true`"]);
 
-        Ok(())
-    }
+    //     Ok(())
+    // }
 
     /// In this testcase we will see how to work with multiple contracts.
     #[drink::test]

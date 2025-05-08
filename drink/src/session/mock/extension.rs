@@ -6,10 +6,11 @@ use parity_scale_codec::{Decode, Encode};
 use crate::{
     errors::MessageResult,
     pallet_revive::chain_extension::ReturnFlags,
-    pallet_revive_debugging::InterceptingExtT,
     session::mock::{MockRegistry, Selector},
 };
 
+#[allow(dead_code)]
+#[deprecated = "No longer used due to pallet-revive removed `type Debug` for intercepting contract calls"]
 /// Runtime extension enabling contract call interception.
 pub(crate) struct MockingExtension {
     /// Mock registry, shared with the sandbox.
@@ -19,7 +20,7 @@ pub(crate) struct MockingExtension {
     pub mock_registry: Arc<Mutex<MockRegistry>>,
 }
 
-impl InterceptingExtT for MockingExtension {
+impl MockingExtension {
     fn intercept_call(
         &self,
         contract_address: Vec<u8>,

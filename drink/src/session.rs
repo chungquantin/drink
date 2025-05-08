@@ -22,12 +22,7 @@ use ink_sandbox::{
 use parity_scale_codec::Decode;
 pub use record::{EventBatch, Record};
 
-use crate::{
-    minimal::MinimalSandboxRuntime,
-    pallet_revive::Config,
-    pallet_revive_debugging::{InterceptingExt, TracingExt},
-    session::mock::MockRegistry,
-};
+use crate::{minimal::MinimalSandboxRuntime, pallet_revive::Config, session::mock::MockRegistry};
 
 pub mod mock;
 use mock::MockingExtension;
@@ -166,10 +161,6 @@ where
     fn default() -> Self {
         let mocks = Arc::new(Mutex::new(MockRegistry::new()));
         let mut sandbox = T::default();
-
-        sandbox.register_extension(InterceptingExt(Box::new(MockingExtension {
-            mock_registry: Arc::clone(&mocks),
-        })));
 
         let actor = T::default_actor();
         let origin = T::convert_account_to_origin(actor.clone());
@@ -597,10 +588,5 @@ where
 
         self.record.push_call_result(result);
         ret
-    }
-
-    /// Set the tracing extension
-    pub fn set_tracing_extension(&mut self, d: TracingExt) {
-        self.sandbox.register_extension(d);
     }
 }

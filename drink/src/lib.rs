@@ -4,7 +4,6 @@
 #![warn(missing_docs)]
 
 pub mod errors;
-pub mod pallet_revive_debugging;
 #[cfg(feature = "session")]
 pub mod session;
 
