@@ -1872,7 +1872,7 @@ dependencies = [
 
 [[package]]
 name = "drink"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "contract-metadata",
  "contract-transcode",
@@ -1892,7 +1892,7 @@ dependencies = [
 
 [[package]]
 name = "drink-test-macro"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "cargo_metadata 0.18.1",
  "contract-build",
