@@ -7,7 +7,6 @@ use std::collections::BTreeMap;
 
 pub use contract::{mock_message, ContractMock, MessageMock, Selector};
 use error::MockingError;
-pub(crate) use extension::MockingExtension;
 use ink_sandbox::pallet_revive::evm::H160;
 
 /// Untyped result of a mocked call.

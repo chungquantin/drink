@@ -24,10 +24,9 @@ pub use record::{EventBatch, Record};
 
 use crate::{minimal::MinimalSandboxRuntime, pallet_revive::Config, session::mock::MockRegistry};
 
-pub mod mock;
-use mock::MockingExtension;
 pub mod bundle;
 pub mod error;
+pub mod mock;
 pub mod mocking_api;
 mod record;
 mod transcoding;
@@ -338,9 +337,9 @@ where
                 Err(SessionError::DeploymentReverted)
             }
             Ok(exec_result) => {
-                let address = exec_result.addr.clone();
-                self.record.push_deploy_return(address.clone());
-                self.transcoders.register(address.clone(), transcoder);
+                let address = exec_result.addr;
+                self.record.push_deploy_return(address);
+                self.transcoders.register(address, transcoder);
 
                 Ok(address)
             }
@@ -548,12 +547,11 @@ where
     ) -> Result<MessageResult<V>, SessionError> {
         let address = match address {
             Some(address) => address,
-            None => self
+            None => *self
                 .record
                 .deploy_returns()
                 .last()
-                .ok_or(SessionError::NoContract)?
-                .clone(),
+                .ok_or(SessionError::NoContract)?,
         };
 
         let data = self

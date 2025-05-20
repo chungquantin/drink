@@ -21,7 +21,7 @@ use crate::{
 
 /// Read the contract binary file.
 pub fn read_contract_binary(path: &std::path::PathBuf) -> Vec<u8> {
-    std::fs::read(&path).expect("Failed to read contract file")
+    std::fs::read(path).expect("Failed to read contract file")
 }
 
 /// Interface for basic mocking operations.
@@ -78,7 +78,7 @@ where
         self.mocks
             .lock()
             .expect("Should be able to acquire lock on registry")
-            .register(mock_address.clone(), mock);
+            .register(mock_address, mock);
 
         mock_address
     }

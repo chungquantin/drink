@@ -108,7 +108,7 @@ pub fn call(app_state: &mut AppState, message: String, args: Vec<String>) {
         return;
     };
 
-    let address = contract.address.clone();
+    let address = contract.address;
     match app_state
         .session
         .call_with_address::<_, ()>(address, &message, &args, None)
