@@ -6,7 +6,7 @@ members = ["drink", "drink/test-macro", "drink-cli"]
 exclude = ["examples/"]
 
 [workspace.package]
-authors = ["Use Ink <ink@use.ink>"]
+authors = ["Cardinal", "Use Ink <ink@use.ink>"]
 edition = "2021"
 homepage = "https://github.com/use-ink/drink"
 license = "Apache-2.0"

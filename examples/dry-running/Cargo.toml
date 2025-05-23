@@ -1,6 +1,6 @@
 [package]
 name = "dry-running"
-authors = ["Use Ink <ink@use.ink>"]
+authors = ["Cardinal", "Aleph Zero Foundation", "Use Ink <ink@use.ink>"]
 edition = "2021"
 homepage = "https://alephzero.org"
 repository = "https://github.com/use-ink/drink"
