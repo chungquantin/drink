@@ -52,7 +52,7 @@ pub fn deploy(
     salt: Option<[u8; 32]>,
 ) {
     // Get raw contract bytes
-    let Some((contract_name, contract_file)) = find_wasm_blob(&app_state.ui_state.cwd) else {
+    let Some((contract_name, contract_file)) = find_contract_blob(&app_state.ui_state.cwd) else {
         app_state.print_error("Failed to find contract file");
         return;
     };
@@ -122,20 +122,20 @@ pub fn call(app_state: &mut AppState, message: String, args: Vec<String>) {
     }
 }
 
-fn find_wasm_blob(cwd: &Path) -> Option<(String, PathBuf)> {
+fn find_contract_blob(cwd: &Path) -> Option<(String, PathBuf)> {
     let Ok(entries) = fs::read_dir(cwd.join("target/ink")) else {
         return None;
     };
     let file = entries
         .into_iter()
         .filter_map(|e| e.ok())
-        .find(|e| e.path().extension().unwrap_or_default() == "wasm")?;
+        .find(|e| e.path().extension().unwrap_or_default() == "polkavm")?;
 
     let raw_name = file
         .file_name()
         .into_string()
         .expect("Invalid file name")
-        .strip_suffix(".wasm")
+        .strip_suffix(".polkavm")
         .expect("We have just checked file extension")
         .to_string();
 
