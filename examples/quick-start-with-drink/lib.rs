@@ -5,8 +5,14 @@
 /// - a constructor (`new`) that initializes the `bool` value to the given value,
 /// - a message `flip` that flips the stored `bool` value from `true` to `false` or vice versa,
 /// - a getter message `get` that returns the current `bool` value.
+///
+/// Additionally, we use the `debug_println` macro from the `ink_env` crate to produce some debug
+/// logs from the contract.
 #[ink::contract]
 mod flipper {
+    // TODO: Requires `debug_println` in `ink_env`.
+    // use ink::env::debug_println;
+
     #[ink(storage)]
     pub struct Flipper {
         value: bool,
@@ -15,16 +21,24 @@ mod flipper {
     impl Flipper {
         #[ink(constructor)]
         pub fn new(init: bool) -> Self {
+            // TODO: Requires `debug_println` in `ink_env`.
+            // debug_println!("Initializing contract with: `{init}`");
             Self { value: init }
         }
 
         #[ink(message)]
         pub fn flip(&mut self) {
+            // TODO: Requires `debug_println` in `ink_env`.
+            // debug_println!("Previous value: `{}`", self.value);
             self.value = !self.value;
+            // TODO: Requires `debug_println` in `ink_env`.
+            // debug_println!("Flipped to:     `{}`", self.value);
         }
 
         #[ink(message)]
         pub fn get(&self) -> bool {
+            // TODO: Requires `debug_println` in `ink_env`.
+            // debug_println!("Reading value from storage");
             self.value
         }
     }
