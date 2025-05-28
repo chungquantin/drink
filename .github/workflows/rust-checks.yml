@@ -53,6 +53,8 @@ jobs:
           command: test
 
       - name: Run tests for examples
+        env:
+          CARGO_TARGET_DIR: ${{ github.workspace }}/target
         shell: bash
         run: |
           for dir in examples/*; do (echo "Running example: $dir" && cargo test --manifest-path $dir/Cargo.toml); done
