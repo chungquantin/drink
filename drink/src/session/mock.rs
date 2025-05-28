@@ -39,6 +39,7 @@ impl MockRegistry {
     }
 
     /// Returns the mock for `address`, if any.
+    #[allow(dead_code)] // FIXME: Remove when mocking extension is replaced
     pub fn get(&self, address: &H160) -> Option<&ContractMock> {
         self.mocked_contracts.get(address)
     }
