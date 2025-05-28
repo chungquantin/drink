@@ -1,3 +1,4 @@
+/*
 use ink::env::{chain_extension::FromStatusCode, DefaultEnvironment, Environment};
 
 /// Simple chain extension that provides some staking information.
@@ -38,3 +39,4 @@ impl Environment for StakingEnvironment {
 
     type ChainExtension = StakingExtension;
 }
+*/

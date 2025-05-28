@@ -1,5 +1,8 @@
 #![cfg_attr(not(feature = "std"), no_std, no_main)]
 
+//! TODO: Replace with precompile example since chain extensions are deprecated in pallet-revive.
+
+/*
 /// Fixed value returned by the example chain extension.
 #[cfg(test)]
 const CHAIN_EXTENSION_RETURN_VALUE: u32 = 100;
@@ -70,3 +73,4 @@ mod tests {
         Ok(())
     }
 }
+*/

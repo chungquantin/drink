@@ -1,3 +1,4 @@
+/*
 use drink::pallet_revive::{
     chain_extension::{ChainExtension, Config as ContractsConfig, Environment, Ext, RetVal},
     wasm::Memory,
@@ -27,3 +28,4 @@ impl<Runtime: ContractsConfig> ChainExtension<Runtime> for StakingExtension {
         Ok(RetVal::Converging(0))
     }
 }
+*/
