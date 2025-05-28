@@ -13,9 +13,7 @@ path = "lib.rs"
 # We use standard dependencies for an ink! smart-contract.
 
 # For debugging from contract, we enable the `ink-debug` feature of `ink` crate.
-ink = { git = "https://github.com/use-ink/ink", features = [
-    "ink-debug",
-], default-features = false }
+ink = { version = "6.0.0-alpha", features = ["ink-debug"], default-features = false }
 
 [dev-dependencies]
 # For testing purposes we bring the `drink` library.
